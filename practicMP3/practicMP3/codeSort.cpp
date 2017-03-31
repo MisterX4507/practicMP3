@@ -64,8 +64,9 @@ private:
 	void merge(int nach, int kon, int* buf, int len)
 	{
 		n = 0;
-		if (kon == nach) { n++; return; }
+		if (kon == nach) { return; }
 		if (kon - nach == 1) {
+			n++;
 			if (buf[kon] < buf[nach])
 				swap(buf[kon], buf[nach]);
 			n++;
@@ -80,7 +81,7 @@ private:
 		int cur = 0;
 		while (kon - nach + 1 != cur)
 		{
-
+			n++;
 			if (xl > m)
 			{
 				temp[cur++] = buf[xr++];
@@ -114,8 +115,8 @@ public:
 int main()
 {
 	setlocale(LC_ALL, "Russian");
-	int size; cout << "Ã‚Ã¢Ã¥Ã¤Ã¨Ã²Ã¥ Ã°Ã Ã§Ã¬Ã¥Ã°Ã­Ã®Ã±Ã²Ã¼ Ã¬Ã Ã±Ã±Ã¨Ã¢Ã®Ã¢ "; cin >> size;
-	cout << "Ã‚Ã¢Ã¥Ã¤Ã¨Ã²Ã¥ Ã­Ã®Ã¬Ã¥Ã° Ã±Ã®Ã°Ã²Ã¨Ã°Ã®Ã¢ÃªÃ¨ "; int nomer; cin >> nomer;
+	int size; cout << "Ââåäèòå ðàçìåðíîñòü ìàññèâà "; cin >> size;
+	cout << "Ââåäèòå íîìåð ñîðòèðîâêè "; int nomer; cin >> nomer;
 	srand((unsigned int)time(0));
 	double mid = 0; COMB z; SELECTION y; MERGE x;
 	for (int S = 1; S <= 100; S++)
@@ -138,6 +139,6 @@ int main()
 		delete[]array;
 	}
 	mid /= 100;
-	cout << "Ã‘Ã°Ã¥Ã¤Ã­Ã¥Ã¥ ÃªÃ®Ã«Ã¨Ã·Ã¥Ã±Ã²Ã¢Ã® Ã®Ã¯Ã¥Ã°Ã Ã¶Ã¨Ã© Ã±Ã°Ã Ã¢Ã­Ã¥Ã­Ã¨Ã¿ Ã¨ Ã¯Ã¥Ã°Ã¥Ã±Ã²Ã Ã­Ã®Ã¢ÃªÃ¨ Ã°Ã Ã¢Ã­Ã® " << mid << "\n";
+	cout << "Ñðåäíåå êîëè÷åñòâî ïðîâåä¸ííûõ îïåðàöèé ñðàâíåíèÿ è ïåðåñòàíîâêè ðàâíî " << mid << "\n";
 	system("PAUSE"); return 0;
 }
