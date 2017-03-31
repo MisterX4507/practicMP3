@@ -59,13 +59,64 @@ public:
 		}
 	}
 };
+class MERGE : public SORTING {
+public:
+	void operation(int* buf, int size)
+	{
+		n = 0;
+		int mid = size / 2;
+		if (size % 2 == 1)
+			mid++;
+		int h = 1;
+		int *c = (int*)malloc(size * sizeof(int));
+		int step;
+		while (h < size)
+		{
+			step = h;
+			int i = 0;
+			int j = mid;
+			int k = 0;
+			while (step <= mid)
+			{
+				while ((i < step) && (j < size) && (j < (mid + step)))
+				{
+					if (buf[i] < buf[j])
+					{
+						c[k] = buf[i];
+						i++; k++; n++;
+					}
+					else {
+						c[k] = buf[j];
+						j++; k++; n++; 
+					}
+				}
+				while (i < step)
+				{
+					c[k] = buf[i];
+					i++; k++; n++;
+				}
+				while ((j < (mid + step)) && (j<size))
+				{
+					c[k] = buf[j];
+					j++; k++; n++;
+				}
+				step = step + h;
+			}
+			h = h * 2;
+			for (i = 0; i < size; i++)
+			{
+				buf[i] = c[i]; n++;
+			}
+		}
+	}
+};
 int main()
 {
 	setlocale(LC_ALL, "Russian");
 	int size; cout << "¬ведите размерность массивов "; cin >> size;
 	cout << "¬ведите номер сортировки "; int nomer; cin >> nomer;
 	srand((unsigned int)time(0));
-	double mid = 0; COMB z; SELECTION y;
+	double mid = 0; COMB z; SELECTION y; MERGE q;
 	for (int S = 1; S <= 100; S++)
 	{
 		int *array = new int[size];
@@ -82,6 +133,7 @@ int main()
 		}
 		if (nomer == 2) { y.operation(array, size); mid += y.n; }
 		if (nomer == 3) { z.operation(array, size); mid += z.n; }
+		if (nomer == 4) { q.operation(array, size); mid += q.n;}
 		delete[]array;
 	}
 	mid /= 100;
