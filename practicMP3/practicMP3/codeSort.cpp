@@ -80,6 +80,7 @@ private:
 		int cur = 0;
 		while (kon - nach + 1 != cur)
 		{
+
 			if (xl > m)
 			{
 				temp[cur++] = buf[xr++];
@@ -113,10 +114,10 @@ public:
 int main()
 {
 	setlocale(LC_ALL, "Russian");
-	int size; cout << "Ââåäèòå ðàçìåðíîñòü ìàññèâîâ "; cin >> size;
-	cout << "Ââåäèòå íîìåð ñîðòèðîâêè "; int nomer; cin >> nomer;
+	int size; cout << "Ã‚Ã¢Ã¥Ã¤Ã¨Ã²Ã¥ Ã°Ã Ã§Ã¬Ã¥Ã°Ã­Ã®Ã±Ã²Ã¼ Ã¬Ã Ã±Ã±Ã¨Ã¢Ã®Ã¢ "; cin >> size;
+	cout << "Ã‚Ã¢Ã¥Ã¤Ã¨Ã²Ã¥ Ã­Ã®Ã¬Ã¥Ã° Ã±Ã®Ã°Ã²Ã¨Ã°Ã®Ã¢ÃªÃ¨ "; int nomer; cin >> nomer;
 	srand((unsigned int)time(0));
-	double mid = 0; COMB z; SELECTION y; MERGE q;
+	double mid = 0; COMB z; SELECTION y; MERGE x;
 	for (int S = 1; S <= 100; S++)
 	{
 		int *array = new int[size];
@@ -131,12 +132,12 @@ int main()
 				} else
 					array[k] = rand() % 1000;
 		}
+		if (nomer == 1) { x.operation(array, size); mid += x.n; }
 		if (nomer == 2) { y.operation(array, size); mid += y.n; }
-		if (nomer == 3) { z.operation(array, size); mid += z.n; }
-		if (nomer == 4) { q.operation(array, size); mid += q.n; }
+		if (nomer == 3) { z.operation(array, size); mid += z.n; }		
 		delete[]array;
 	}
 	mid /= 100;
-	cout << "Ñðåäíåå êîëè÷åñòâî îïåðàöèé ñðàâíåíèÿ è ïåðåñòàíîâêè ðàâíî " << mid << "\n";
+	cout << "Ã‘Ã°Ã¥Ã¤Ã­Ã¥Ã¥ ÃªÃ®Ã«Ã¨Ã·Ã¥Ã±Ã²Ã¢Ã® Ã®Ã¯Ã¥Ã°Ã Ã¶Ã¨Ã© Ã±Ã°Ã Ã¢Ã­Ã¥Ã­Ã¨Ã¿ Ã¨ Ã¯Ã¥Ã°Ã¥Ã±Ã²Ã Ã­Ã®Ã¢ÃªÃ¨ Ã°Ã Ã¢Ã­Ã® " << mid << "\n";
 	system("PAUSE"); return 0;
 }
