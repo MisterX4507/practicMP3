@@ -60,61 +60,62 @@ public:
 	}
 };
 class MERGE : public SORTING {
-public:
-	void operation(int* buf, int size)
+private:
+	void merge(int nach, int kon, int* buf, int len)
 	{
 		n = 0;
-		int mid = size / 2;
-		if (size % 2 == 1)
-			mid++;
-		int h = 1;
-		int *c = (int*)malloc(size * sizeof(int));
-		int step;
-		while (h < size)
-		{
-			step = h;
-			i = 0;
-			j = mid;
-			int k = 0;
-			while (step <= mid)
-			{
-				while ((i < step) && (j < size) && (j < (mid + step)))
-				{
-					if (buf[i] < buf[j])
-					{
-						c[k] = buf[i];
-						i++; k++; n++;
-					}
-					else {
-						c[k] = buf[j];
-						j++; k++; n++; 
-					}
-				}
-				while (i < step)
-				{
-					c[k] = buf[i];
-					i++; k++; n++;
-				}
-				while ((j < (mid + step)) && (j<size))
-				{
-					c[k] = buf[j];
-					j++; k++; n++;
-				}
-				step = step + h;
-			}
-			h = h * 2;
-			for (i = 0; i < size; i++)
-			{
-				buf[i] = c[i]; n++;
-			}
+		if (kon == nach) { n++; return; }
+		if (kon - nach == 1) {
+			if (buf[kon] < buf[nach])
+				swap(buf[kon], buf[nach]);
+			n++;
+			return;
 		}
+		int m = (kon + nach) / 2;
+		merge(nach, m, buf, len);
+		merge(m + 1, kon, buf, len);
+		int *temp = (int*)malloc(len * sizeof(int));
+		int xl = nach;
+		int xr = m + 1;
+		int cur = 0;
+		while (kon - nach + 1 != cur)
+		{
+
+			if (xl > m)
+			{
+				temp[cur++] = buf[xr++];
+				n++;
+			}
+			else if (xr > kon)
+			{
+				temp[cur++] = buf[xl++];
+				n++;
+			}
+			else if (buf[xl] > buf[xr])
+			{
+				temp[cur++] = buf[xr++];
+				n++;
+			}
+			else { temp[cur++] = buf[xl++]; n++; }
+		}
+		for (int i = 0; i < cur; i++)
+		{
+			buf[i + nach] = temp[i];
+			n++;
+		}
+	}
+public:
+	void operation(int* buf, int len)
+	{
+		int nach = 0, kon = len - 1;
+		merge(nach, kon, buf, len);
 	}
 };
 int main()
 {
 	setlocale(LC_ALL, "Russian");
-	int size; cout << "Ââåäèòå ðàçìåðíîñòü ìàññèâîâ "; cin >> size;
-	cout << "Ââåäèòå íîìåð ñîðòèðîâêè "; int nomer; cin >> nomer;
+	int size; cout << "Ã‚Ã¢Ã¥Ã¤Ã¨Ã²Ã¥ Ã°Ã Ã§Ã¬Ã¥Ã°Ã­Ã®Ã±Ã²Ã¼ Ã¬Ã Ã±Ã±Ã¨Ã¢Ã®Ã¢ "; cin >> size;
+	cout << "Ã‚Ã¢Ã¥Ã¤Ã¨Ã²Ã¥ Ã­Ã®Ã¬Ã¥Ã° Ã±Ã®Ã°Ã²Ã¨Ã°Ã®Ã¢ÃªÃ¨ "; int nomer; cin >> nomer;
 	srand((unsigned int)time(0));
 	double mid = 0; COMB z; SELECTION y; MERGE x;
 	for (int S = 1; S <= 100; S++)
@@ -137,6 +138,6 @@ int main()
 		delete[]array;
 	}
 	mid /= 100;
-	cout << "Ñðåäíåå êîëè÷åñòâî îïåðàöèé ñðàâíåíèÿ è ïåðåñòàíîâêè ðàâíî " << mid << "\n";
+	cout << "Ã‘Ã°Ã¥Ã¤Ã­Ã¥Ã¥ ÃªÃ®Ã«Ã¨Ã·Ã¥Ã±Ã²Ã¢Ã® Ã®Ã¯Ã¥Ã°Ã Ã¶Ã¨Ã© Ã±Ã°Ã Ã¢Ã­Ã¥Ã­Ã¨Ã¿ Ã¨ Ã¯Ã¥Ã°Ã¥Ã±Ã²Ã Ã­Ã®Ã¢ÃªÃ¨ Ã°Ã Ã¢Ã­Ã® " << mid << "\n";
 	system("PAUSE"); return 0;
 }
